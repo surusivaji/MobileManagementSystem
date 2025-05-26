@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mobiles store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+  	<div class="container-fluid">
+  		<div class="row mt-2">
+  			<div class="col-md-12">
+  				<div class="card">
+  					<div class="card-head p-2 card-light">
+  						<h3 class="fw-bold text-center heading fs-2 text-danger">Mobile Store</h3>
+  					</div>
+  					<div class="card-body table-responsive">
+	  					<div class="row my-2">
+	    					<div class="col-md-2">
+	    						<a th:href="@{/addMobile}" class="btn btn-primary my-2">Add Mobile</a>
+	    					</div>
+	    					<div class="col-md-6">
+	    					</div>
+	    					<div class="col-md-4">
+	    						<div class="row">
+									<div class="col-md-10 offset-md-2">
+										<form method="get" th:action="@{/search}">
+											<div class="input-group">
+												<input type="text" class="form-control" name="ch"/>
+												<button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+											</div>
+										</form>
+									</div>
+								</div>
+	    					</div>
+	    				</div>
+						<!-- alert message starts -->
+						<div class="alert alert-success" th:if="${session.successMsg}">
+							<p class="text-center fw-bold">[[${session.successMsg}]]</p>
+							<th:block th:text="${@IMobileServiceImpl.removeSessionMessage()}"></th:block>
+						</div>
+						<div class="alert alert-success" th:if="${session.warningMsg}">
+							<p class="text-center fw-bold">[[${session.warningMsg}]]</p>
+							<th:block th:text="${@IMobileServiceImpl.removeSessionMessage()}"></th:block>
+						</div>
+						<div class="alert alert-danger" th:if="${session.failMsg}">
+							<p class="text-center fw-bold">[[${session.failMsg}]]</p>
+							<th:block th:text="${@IMobileServiceImpl.removeSessionMessage()}"></th:block>
+						</div>
+						<!-- alert message ends -->
+	    				<table class="table table-hover">
+	    					<tr class="table-dark">
+	    						<th>ID</th>
+	    						<th>Image</th>
+	    						<th>Brand</th>
+	    						<th>Model</th>
+	    						<th>RAM</th>
+	    						<th>ROM</th>
+	    						<th>Battery</th>
+	    						<th>Processor</th>
+	    						<th>Price</th>
+	    						<th>Action</th>
+	    					</tr>
+	    					<th:block th:if="${mobiles.size()==0}">
+	    						<tr>
+	    							<td class="text-center fw-bold text-danger fs-5" colspan="10">Mobiles are not avaiable..!!</td>
+	    						</tr>
+	    					</th:block>
+	    					<th:block th:unless="${mobiles.size()==0}">
+	    						<tr th:each="mobile : ${mobiles}">
+		    						<td th:text=${mobile.id}></td>
+		    						<td><img th:src="@{'/images/Mobiles/'+${mobile.imageUrl}}" height="50px" width="50px" class="img-fluid" alt="" /></td>
+		    						<td th:text="${mobile.brand}"></td>
+		    						<td th:text="${mobile.model}"></td>
+		    						<td th:text="${mobile.ram}"></td>
+		    						<td th:text="${mobile.rom}"></td>
+		    						<td th:text="${mobile.battery}"></td>
+		    						<td th:text="${mobile.processor}"></td>
+		    						<td th:text="${mobile.price}"></td>
+		    						<td>
+		    							<a th:href="@{'/editMobileInformation/'+${mobile.id}}" class="btn btn-success btn-sm"> <i class="fas fa-edit"></i> Edit</a>
+		    							<a th:href="@{'/deleteMobileInformation/'+${mobile.id}}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> Remove</a>
+		    						</td>
+	    						</tr>
+	    					</th:block>
+	    				</table>
+	    				<div th:if="${mobiles.size()!=0 && isSearch==false}" class="d-flex justify-content-center">
+	    					<nav aria-label="Page navigation example">
+							  <ul class="pagination">
+							    <li class="page-item" th:if="${currentPage!=0}">
+							      <a class="page-link" th:href="@{'/dashboard?pageNo='+${currentPage-1}}" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							        <span class="sr-only">Previous</span>
+							      </a>
+							    </li>
+							    <li class="page-item" th:each=" i :${#numbers.sequence(1, totalPages)}" th:classappend="${currentPage==i-1} ? 'active' : ''">
+							    	<a class="page-link" th:href="@{'/dashboard?pageNo='+${i-1}}" th:text="${i}"></a>
+							    </li>
+							    <li class="page-item" th:if="${currentPage+1!=totalPages}">
+							      <a class="page-link" th:href="@{'/dashboard?pageNo='+${currentPage+1}}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							        <span class="sr-only">Next</span>
+							      </a>
+							    </li>
+							  </ul>
+							</nav>
+	    				</div>
+	    			</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
