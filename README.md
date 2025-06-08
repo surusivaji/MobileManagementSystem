@@ -73,3 +73,6 @@ Pagination is implemented using:
 <img src="SearchMobile.png">
 
 ---
+
+<h4 align="center"> 💡 Developed with ❤️ using Spring Boot & MySQL </h4>
+
