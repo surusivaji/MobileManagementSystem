@@ -55,51 +55,21 @@ Pagination is implemented using:
 
 ---
 
-## 🚀 Getting Started
-
-### ✅ Prerequisites
-
-- Java 8 or higher  
-- Maven  
-- MySQL  
-- IDE (IntelliJ / Eclipse)
-
-### ⚙️ Setup Instructions
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-username/online-mobile-store.git
-
-2. Configure Database in application.properties
-
-spring.datasource.username=root
-spring.datasource.password=your_password
-spring.datasource.url=jdbc:mysql://localhost:3306/mobile_db
-
-
-3. Run the Application
-
-mvn spring-boot:run
-
-
-4. Open in Browser
-
-http://localhost:8080/
-
----
-
 ## 📸 Screenshots
 
 ### 🔹 Home Page
-![Home Page](https://via.placeholder.com/800x400?text=Home+Page)
+<img src="Dashboard.png">
 
 ### 🔹 Add Mobile
-![Add Mobile](https://via.placeholder.com/800x400?text=Add+Mobile)
+<img src="AddMobile.png">
 
-### 🔹 Mobile List with Pagination
-![Mobile List](https://via.placeholder.com/800x400?text=Mobile+List)
+### 🔹 Edit Mobile
+<img src="EditMobile.png">
 
-### 🔹 Search Result
-![Search Mobile](https://via.placeholder.com/800x400?text=Search+Mobile)
+### 🔹 Delete Mobile
+<img src="DeleteMobile.png">
+
+### 🔹 Search Mobiles
+<img src="SearchMobile.png">
 
 ---
